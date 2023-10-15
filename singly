@@ -1,0 +1,87 @@
+import java.time.LocalDateTime;
+
+public class Square {
+    private double sideLength;
+    private LocalDateTime creationTime;
+
+    public Square(double sideLength) {
+        this.sideLength = sideLength;
+        this.creationTime = LocalDateTime.now();
+    }
+
+    public Square() {
+        this(1.0); // Default side length is 1.0
+    }
+
+    public double getSideLength() {
+        return sideLength;
+    }
+
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
+    public double getArea() {
+        return sideLength * sideLength;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Square [Side Length: " + sideLength + ", Area: " + getArea() + ", Creation Time: " + creationTime + "]";
+    }
+}
+public class LinkedList {
+    private Node head;
+
+    public void add(Square square) {
+        Node newNode = new Node(square);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.println(current.square.toString());
+            current = current.next;
+        }
+    }
+
+    private class Node {
+        Square square;
+        Node next;
+
+        Node(Square square) {
+            this.square = square;
+            this.next = null;
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        LinkedList squareList = new LinkedList();
+
+        // Creating squares and adding them to the list
+        Square square1 = new Square(5.0);
+        Square square2 = new Square(3.0);
+        Square square3 = new Square(7.0);
+
+        squareList.add(square1);
+        squareList.add(square2);
+        squareList.add(square3);
+
+        // Printing the list
+        squareList.printList();
+    }
+}
